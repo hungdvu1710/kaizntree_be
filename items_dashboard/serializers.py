@@ -1,15 +1,15 @@
 from rest_framework import serializers
-from .models import Item, Tags
+from .models import Item, Tag
 
 
-class TagsSerializer(serializers.ModelSerializer):
+class TagSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Tags
+        model = Tag
         fields = "__all__"
 
 
 class ItemSerializer(serializers.ModelSerializer):
-    tags = TagsSerializer(many=True, slug_field="name", read_only=True)
+    tags = serializers.SlugRelatedField(many=True, slug_field="name", read_only=True)
 
     class Meta:
         model = Item
