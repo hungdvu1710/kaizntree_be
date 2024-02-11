@@ -7,20 +7,24 @@ services:
     command: 'python manage.py runserver 0.0.0.0:8000'
     ports:
       - 8000:8000
+    env_file:
+      - .env
     volumes:
       - .:/app
     depends_on:
       - db
 
   db:
-    image: mysql:5.7.22
-    # restart: always
+    container_name: kaizntree_db
+    image: postgres:12
     environment:
-      MYSQL_DATABASE: admin
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root1234
-      MYSQL_ROOT_PASSWORD: root1234
-    volumes:
-      - .dbdata:/var/lib/mysql
+      - POSTGRES_USER=kaizntree
+      - POSTGRES_PASSWORD=kaizntree
+      - POSTGRES_DB=kaizntree
     ports:
-      - 33068:3306
+      - 5433:5433
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata: {}
