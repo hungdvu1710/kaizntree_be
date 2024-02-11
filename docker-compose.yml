@@ -4,9 +4,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: 'python manage.py runserver 0.0.0.0:8000'
+    command: 'python manage.py runserver 0.0.0.0:8001'
     ports:
-      - 8000:8000
+      - 8001:8001
     env_file:
       - .env
     volumes:
@@ -22,9 +22,9 @@ services:
       - POSTGRES_PASSWORD=kaizntree
       - POSTGRES_DB=kaizntree
     ports:
-      - 5433:5433
+      - 5432:5432
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
 
 volumes:
-  pgdata: {}
+  postgres_data: {}
