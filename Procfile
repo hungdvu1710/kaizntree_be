@@ -1,0 +1,1 @@
+web: gunicorn kaizntree_be.wsgi
