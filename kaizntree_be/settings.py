@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 import os
+from datetime import timedelta
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -41,6 +42,8 @@ INSTALLED_APPS = [
     "rest_framework",
     "corsheaders",
     "items_dashboard.apps.ItemsDashboardConfig",
+    "accounts.apps.AccountsConfig",
+    "rest_framework.authtoken",
 ]
 
 MIDDLEWARE = [
@@ -55,6 +58,22 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "kaizntree_be.urls"
+
+REST_FRAMEWORK = {
+    "NON_FIELD_ERRORS_KEY": "errors",
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated"),
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=2),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "SIGNING_KEY": SECRET_KEY,
+    "AUTH_HEADER_TYPES": ("Bearer",),
+}
 
 TEMPLATES = [
     {
